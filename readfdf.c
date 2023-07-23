@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:22:35 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 15:51:31 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:32:42 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,18 +86,32 @@ int	get_width(char	*file)
 	return (width);
 }
 
-void	fill_matrix(int *z_line, char *line, t_fdf *data)
+void	fill_matrix(int *z_line, int *c_line, char *line, t_fdf *data)
 {
 	char	**nums;
 	char	**word;
 	int		i;
-	// t_color	color;
 
 	nums = ft_split(line, ' ');
-	assign_color(word, z_line, nums, data);
-	// printf("color = %d\n", color.col);
+	i = 0;
+	while (nums[i])
+	{
+		if (ft_strchr(nums[i], ','))
+		{
+			word = ft_split(nums[i], ',');
+			z_line[i] = ft_atoi(word[0]);
+			c_line[i] = ft_atoibase16(word[1]);
+			freeall(word);
+		}
+		else
+		{
+			z_line[i] = ft_atoi(nums[i]);
+			c_line[i] = 0;
+		}
+		free(nums[i]);
+		i++;
+	}
 	free(nums);
-	// return (color);
 }
 
 void	read_file(char *file, t_fdf *data)
@@ -105,23 +119,19 @@ void	read_file(char *file, t_fdf *data)
 	int		fd;
 	char	*line;
 	int		i;
-	// t_color	color;
 
 	data->height = get_height(file);
 	data->width = get_width(file);
 	data->z_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
+	data->c_matrix = (int **)malloc(sizeof(int *) * (data->height + 1));
 	i = 0;
 	while (i <= data->height)
-		data->z_matrix[i++] = (int *)malloc(sizeof(int) * (data->width + 1));
-	fd = open(file, O_RDONLY, 0);
-	i = 0;
-	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line, data);
-		free(line);
+		data->z_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 1));
+		data->c_matrix[i] = (int *)malloc(sizeof(int) * (data->width + 1));
 		i++;
 	}
-	close(fd);
+	fillandfree(file, data);
 	data->z_matrix[i] = NULL;
-	// return (color);
+	data->c_matrix[i] = NULL;
 }

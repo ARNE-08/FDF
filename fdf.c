@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:24 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 15:50:05 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 17:01:32 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,26 +77,31 @@ int	close_button_event(int keycode, t_fdf *data)
 	return (0);
 }
 
+// ! pentenegpos is acting weird
+// ! should read or not read pylone?
 int	main(int ac, char **av)
 {
 	t_fdf	*data;
-	// t_color	color;
 
 	check_error(ac, av);
 	data = (t_fdf *)malloc(sizeof(t_fdf));
-	// color = read_file(av[1], data);
 	read_file(av[1], data);
-	data->zoom = 25;
-	data->shift_x = WIN_W / 3;
-	data->shift_y = WIN_H / 3;
+	// ! what should be the value for zoom
+	data->zoom = 50;
+	data->w = WIN_W;
+	data->h = WIN_H;
 	data->mlx_ptr = mlx_init();
-	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, "FDF");
+	if (data->width > WIN_W)
+		data->w = data->width;
+	if (data->height > WIN_H)
+		data->h = data->height;
+	data->shift_x = data->w / 3;
+	data->shift_y = data->h / 3;
+	data->win_ptr = mlx_new_window(data->mlx_ptr, data->w, data->h, "FDF");
 	drawmap(data);
-	// bonus
 	mlx_key_hook(data->win_ptr, deal_key, data);
 	// ! abort when trying to close with 'x' button
 	mlx_hook(data->win_ptr, 17, 0, close_button_event, data);
-	// to keep the window open
 	mlx_loop(data->mlx_ptr);
 }
 

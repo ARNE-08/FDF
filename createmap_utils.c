@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 01:54:18 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 16:05:04 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:36:26 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,12 @@ void	color(t_pos *x1, t_pos *x2, t_fdf *data)
 	x1->z = data->z_matrix[(int)x1->y][(int)x1->x];
 	x2->z = data->z_matrix[(int)x2->y][(int)x2->x];
 	if (x1->z || x2->z)
-		data->color = AQUA;
+	{
+		if (data->c_matrix[(int)x1->y][(int)x1->x] == 0)
+			data->color = AQUA;
+		else
+			data->color = data->c_matrix[(int)x1->y][(int)x1->x];
+	}
 	else
 		data->color = WHITE;
 	zoom(x1, data);

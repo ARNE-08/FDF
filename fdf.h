@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:44 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 16:07:22 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:53:05 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,11 +58,15 @@ typedef struct s_fdf
 	int		width;
 	int		height;
 	int		**z_matrix;
+	int		**c_matrix;
+
 	int		color;
 
 	int		zoom;
 	int		shift_x;
 	int		shift_y;
+	int		w;
+	int		h;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -75,17 +79,17 @@ typedef struct s_pos
 	float	z;
 }	t_pos;
 
-typedef struct s_color
-{
-	float	x;
-	float	y;
-	int		col;
-}	t_color;
+// typedef struct s_color
+// {
+// 	float	x;
+// 	float	y;
+// 	int		col;
+// }	t_color;
 
 int		word_count(char *line, char c);
 int		get_height(char *file);
 int		get_width(char	*file);
-void	fill_matrix(int *z_line, char *line, t_fdf *data);
+void	fill_matrix(int *z_line, int *c_line, char *line, t_fdf *data);
 void	read_file(char *file, t_fdf *data);
 void	check_amount(char *file);
 void	check_error(int ac, char **av);
@@ -99,6 +103,8 @@ void	color(t_pos *x1, t_pos *x2, t_fdf *data);
 float	fmodule(float i);
 int		deal_key(int key, t_fdf *data);
 int		ft_atoibase16(char *str);
-void	assign_color(char **word, int *z_line, char **nums, t_fdf *data);
+void	fillandfree(char *file, t_fdf *data);
+void	freeall(char **word);
+// void	assign_color(char **word, int *z_line, char **nums, t_fdf *data);
 
 #endif

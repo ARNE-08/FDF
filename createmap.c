@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/22 14:54:07 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 16:05:06 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:54:16 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	connectpoint(t_pos x1, t_pos x2, t_fdf *data)
 		mlx_pixel_put(data->mlx_ptr, data->win_ptr, x1.x, x1.y, data->color);
 		x1.x += x_step;
 		x1.y += y_step;
-		if (x1.x > WIN_W || x1.y > WIN_H || x1.y < 0 || x1.x < 0)
+		if (x1.x > data->w || x1.y > data->h || x1.y < 0 || x1.x < 0)
 			break ;
 	}
 }
