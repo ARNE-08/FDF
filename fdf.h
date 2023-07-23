@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:44 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 01:55:36 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:07:22 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@
 
 # define WIN_H 1080
 # define WIN_W 1920
-# define ANGLE 0.523599
+# define ANGLE 0.7
 # define SHIFT 10
 # define ZOOM_SHIFT 0.25
 # define ROT_SHIFT 0.01
@@ -50,15 +50,19 @@
 # define KEY_PLUS 24
 # define KEY_DOWN 125
 # define KEY_UP 126
+# define KEY_LEFT 123
+# define KEY_RIGHT 124
 
 typedef struct s_fdf
 {
 	int		width;
 	int		height;
 	int		**z_matrix;
+	int		color;
 
 	int		zoom;
-	int		color;
+	int		shift_x;
+	int		shift_y;
 
 	void	*mlx_ptr;
 	void	*win_ptr;
@@ -71,10 +75,17 @@ typedef struct s_pos
 	float	z;
 }	t_pos;
 
+typedef struct s_color
+{
+	float	x;
+	float	y;
+	int		col;
+}	t_color;
+
 int		word_count(char *line, char c);
 int		get_height(char *file);
 int		get_width(char	*file);
-void	fill_matrix(int *z_line, char *line);
+void	fill_matrix(int *z_line, char *line, t_fdf *data);
 void	read_file(char *file, t_fdf *data);
 void	check_amount(char *file);
 void	check_error(int ac, char **av);
@@ -86,5 +97,8 @@ void	zoom(t_pos *x1, t_fdf *data);
 void	isometric(t_pos *x1, t_fdf *data);
 void	color(t_pos *x1, t_pos *x2, t_fdf *data);
 float	fmodule(float i);
+int		deal_key(int key, t_fdf *data);
+int		ft_atoibase16(char *str);
+void	assign_color(char **word, int *z_line, char **nums, t_fdf *data);
 
 #endif

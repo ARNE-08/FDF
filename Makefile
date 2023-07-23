@@ -6,7 +6,7 @@
 #    By: psaengha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/17 15:53:50 by psaengha          #+#    #+#              #
-#    Updated: 2023/07/23 01:56:09 by psaengha         ###   ########.fr        #
+#    Updated: 2023/07/23 15:41:36 by psaengha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,10 @@ NAME = fdf
 SRC =	fdf.c \
 		readfdf.c \
 		createmap.c \
-		createmap_utils.c
+		createmap_utils.c \
+		deal_with_keys.c \
+		ft_atoibase.c \
+		color.c
 OBJ = $(SRC:%.c=%.o)
 LIBFT = utils/libft/libft.a
 GETNEXTLINE = utils/get_next_line/get_next_line.a
@@ -25,6 +28,7 @@ MINILIB = minilibx_macos/libmlx.a
 INCS_DIR = ./includes
 IFLAGS = -I $(INCS_DIR)
 LEAK = -fsanitize=address
+# GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude
 GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude $(LEAK)
 
 all: $(NAME)

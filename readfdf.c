@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:22:35 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 00:16:07 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:51:31 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,20 +86,18 @@ int	get_width(char	*file)
 	return (width);
 }
 
-void	fill_matrix(int *z_line, char *line)
+void	fill_matrix(int *z_line, char *line, t_fdf *data)
 {
 	char	**nums;
+	char	**word;
 	int		i;
+	// t_color	color;
 
 	nums = ft_split(line, ' ');
-	i = 0;
-	while (nums[i])
-	{
-		z_line[i] = ft_atoi(nums[i]);
-		free(nums[i]);
-		i++;
-	}
+	assign_color(word, z_line, nums, data);
+	// printf("color = %d\n", color.col);
 	free(nums);
+	// return (color);
 }
 
 void	read_file(char *file, t_fdf *data)
@@ -107,6 +105,7 @@ void	read_file(char *file, t_fdf *data)
 	int		fd;
 	char	*line;
 	int		i;
+	// t_color	color;
 
 	data->height = get_height(file);
 	data->width = get_width(file);
@@ -118,10 +117,11 @@ void	read_file(char *file, t_fdf *data)
 	i = 0;
 	while (get_next_line(fd, &line))
 	{
-		fill_matrix(data->z_matrix[i], line);
+		fill_matrix(data->z_matrix[i], line, data);
 		free(line);
 		i++;
 	}
 	close(fd);
 	data->z_matrix[i] = NULL;
+	// return (color);
 }

@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 01:54:18 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 02:00:57 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 16:05:04 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,10 @@ void	zoom(t_pos *x1, t_fdf *data)
 
 void	isometric(t_pos *x1, t_fdf *data)
 {
-	x1->x = (x1->x - x1->y) * cos(0.8);
-	x1->y = (x1->x + x1->y) * sin(0.8) - x1->z;
-	x1->x += WIN_W / 3;
-	x1->y += WIN_H / 3;
+	x1->x = (x1->x - x1->y) * cos(ANGLE);
+	x1->y = (x1->x + x1->y) * sin(ANGLE) - x1->z;
+	x1->x += data->shift_x;
+	x1->y += data->shift_y;
 }
 
 void	color(t_pos *x1, t_pos *x2, t_fdf *data)

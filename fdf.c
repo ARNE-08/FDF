@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:24 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 02:06:17 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/23 15:50:05 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,25 +70,32 @@ void	check_error(int ac, char **av)
 		check_amount(av[1]);
 }
 
+int	close_button_event(int keycode, t_fdf *data)
+{
+	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	// mlx_loop_end(data->mlx_ptr);
+	return (0);
+}
+
 int	main(int ac, char **av)
 {
 	t_fdf	*data;
-	t_pos	x1;
-	t_pos	x2;
+	// t_color	color;
 
-	x1.x = 10;
-	x1.y = 10;
-	x2.x = 600;
-	x2.y = 300;
 	check_error(ac, av);
 	data = (t_fdf *)malloc(sizeof(t_fdf));
+	// color = read_file(av[1], data);
 	read_file(av[1], data);
 	data->zoom = 25;
+	data->shift_x = WIN_W / 3;
+	data->shift_y = WIN_H / 3;
 	data->mlx_ptr = mlx_init();
 	data->win_ptr = mlx_new_window(data->mlx_ptr, WIN_W, WIN_H, "FDF");
 	drawmap(data);
 	// bonus
-	// mlx_key_hook(data->win_ptr, deal_key, NULL);
+	mlx_key_hook(data->win_ptr, deal_key, data);
+	// ! abort when trying to close with 'x' button
+	mlx_hook(data->win_ptr, 17, 0, close_button_event, data);
 	// to keep the window open
 	mlx_loop(data->mlx_ptr);
 }
