@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:44 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 16:53:05 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:25:45 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@
 # define WHITE 0xFFFFFF
 # define CARROT 0xFFA500
 # define YELLOW 0xFFFF00
+# define CREAM 0xF9F1CC
 # define GRASS 0x00FF00
 # define AQUA 0x00FFFF
 # define RED 0xFF0000
@@ -62,12 +63,13 @@ typedef struct s_fdf
 
 	int		color;
 
-	int		zoom;
+	float	zoom;
 	int		shift_x;
 	int		shift_y;
 	int		w;
 	int		h;
 
+	void	*img_ptr;
 	void	*mlx_ptr;
 	void	*win_ptr;
 }	t_fdf;
@@ -105,6 +107,7 @@ int		deal_key(int key, t_fdf *data);
 int		ft_atoibase16(char *str);
 void	fillandfree(char *file, t_fdf *data);
 void	freeall(char **word);
+int		maxz(t_fdf *data);
 // void	assign_color(char **word, int *z_line, char **nums, t_fdf *data);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:24 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/23 17:01:32 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/24 22:27:57 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,14 @@ void	check_error(int ac, char **av)
 
 int	close_button_event(int keycode, t_fdf *data)
 {
-	mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+	exit(0);
+	// mlx_destroy_window(data->mlx_ptr, data->win_ptr);
 	// mlx_loop_end(data->mlx_ptr);
 	return (0);
 }
 
-// ! pentenegpos is acting weird
-// ! should read or not read pylone?
+// ! put pixel to img and out img to window
+// ! pentenegpos and mars is acting weird
 int	main(int ac, char **av)
 {
 	t_fdf	*data;
@@ -86,8 +87,6 @@ int	main(int ac, char **av)
 	check_error(ac, av);
 	data = (t_fdf *)malloc(sizeof(t_fdf));
 	read_file(av[1], data);
-	// ! what should be the value for zoom
-	data->zoom = 50;
 	data->w = WIN_W;
 	data->h = WIN_H;
 	data->mlx_ptr = mlx_init();
@@ -95,12 +94,14 @@ int	main(int ac, char **av)
 		data->w = data->width;
 	if (data->height > WIN_H)
 		data->h = data->height;
-	data->shift_x = data->w / 3;
-	data->shift_y = data->h / 3;
+	// ! shift to center for each map
+	data->shift_x = (data->w / 3) + (data->width * 0.5);
+	data->shift_y = data->h / 6;
+	data->zoom = (data->w / data->width) / 1.5;
+	data->img_ptr = mlx_new_image(data->mlx_ptr, data->w, data->h);
 	data->win_ptr = mlx_new_window(data->mlx_ptr, data->w, data->h, "FDF");
 	drawmap(data);
 	mlx_key_hook(data->win_ptr, deal_key, data);
-	// ! abort when trying to close with 'x' button
 	mlx_hook(data->win_ptr, 17, 0, close_button_event, data);
 	mlx_loop(data->mlx_ptr);
 }
