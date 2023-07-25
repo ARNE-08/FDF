@@ -6,7 +6,7 @@
 #    By: psaengha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/17 15:53:50 by psaengha          #+#    #+#              #
-#    Updated: 2023/07/23 22:56:11 by psaengha         ###   ########.fr        #
+#    Updated: 2023/07/25 15:34:51 by psaengha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,8 @@ SRC =	fdf.c \
 		createmap_utils.c \
 		deal_with_keys.c \
 		ft_atoibase.c \
-		color.c
+		color.c \
+		mappos.c
 OBJ = $(SRC:%.c=%.o)
 LIBFT = utils/libft/libft.a
 GETNEXTLINE = utils/get_next_line/get_next_line.a

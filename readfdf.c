@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:22:35 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/24 15:51:45 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:50:49 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,6 @@
 
 // get height count the number of line in the file
 // get weight from number of column in line
-// int	word_count(char *line, char c)
-// {
-// 	char	**split;
-// 	int		i;
-
-// 	split = ft_split(line, ' ');
-// 	i = 0;
-// 	while (split[i])
-// 	{
-// 		free(split[i]);
-// 		i++;
-// 	}
-// 	free(split);
-// 	return (i);
-// }
 // use a new get_next_line function that also receive line as parameter
 // return the result to line
 int	word_count(char *str, char c)
@@ -75,7 +60,12 @@ int	get_width(char	*file)
 
 	fd = open(file, O_RDONLY, 0);
 	get_next_line(fd, &line);
-	width = word_count(line, ' ');
+	while (line != NULL)
+	{
+		get_next_line(fd, &line);
+		if (line != NULL)
+			width = word_count(line, ' ');
+	}
 	free(line);
 	close(fd);
 	if (width == -1)
@@ -88,14 +78,15 @@ int	get_width(char	*file)
 
 void	fill_matrix(int *z_line, int *c_line, char *line, t_fdf *data)
 {
-	char	**nums;
-	char	**word;
-	int		i;
+	char		**nums;
+	char		**word;
+	int			i;
 
 	nums = ft_split(line, ' ');
 	i = 0;
 	while (nums[i])
 	{
+		checkmap(nums[i]);
 		if (ft_strchr(nums[i], ','))
 		{
 			word = ft_split(nums[i], ',');

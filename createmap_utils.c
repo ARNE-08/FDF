@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 01:54:18 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/24 17:22:53 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 00:44:56 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	color(t_pos *x1, t_pos *x2, t_fdf *data)
 	{
 		progress = (float)x1->z / (float)maxz(data);
 		if (colc == 0)
-			data->color = AQUA;
+			data->color = gradient(CREAM, AQUA, progress);
 		else
 			data->color = colc;
 	}
@@ -68,7 +68,7 @@ void	color(t_pos *x1, t_pos *x2, t_fdf *data)
 	isometric(x2, data);
 }
 
-float	fmodule(float i)
+float	ft_abs(float i)
 {
 	if (i < 0)
 		i *= -1;
