@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 20:22:35 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/26 00:50:49 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:58:12 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,6 @@
 
 // get height count the number of line in the file
 // get weight from number of column in line
-// use a new get_next_line function that also receive line as parameter
-// return the result to line
 int	word_count(char *str, char c)
 {
 	int	i;
@@ -43,10 +41,12 @@ int	get_height(char *file)
 
 	fd = open(file, O_RDONLY, 0);
 	height = 0;
-	while (get_next_line(fd, &line))
+	line = get_next_line(fd);
+	while (line != NULL)
 	{
 		height++;
 		free(line);
+		line = get_next_line(fd);
 	}
 	close(fd);
 	return (height);
@@ -59,14 +59,14 @@ int	get_width(char	*file)
 	char	*line;
 
 	fd = open(file, O_RDONLY, 0);
-	get_next_line(fd, &line);
+	line = get_next_line(fd);
 	while (line != NULL)
 	{
-		get_next_line(fd, &line);
+		free(line);
+		line = get_next_line(fd);
 		if (line != NULL)
 			width = word_count(line, ' ');
 	}
-	free(line);
 	close(fd);
 	if (width == -1)
 	{
@@ -108,7 +108,6 @@ void	fill_matrix(int *z_line, int *c_line, char *line, t_fdf *data)
 void	read_file(char *file, t_fdf *data)
 {
 	int		fd;
-	char	*line;
 	int		i;
 
 	data->height = get_height(file);
@@ -123,6 +122,4 @@ void	read_file(char *file, t_fdf *data)
 		i++;
 	}
 	fillandfree(file, data);
-	data->z_matrix[i] = NULL;
-	data->c_matrix[i] = NULL;
 }

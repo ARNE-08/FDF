@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 01:54:18 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/26 00:44:56 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:39:56 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,8 @@ void	color(t_pos *x1, t_pos *x2, t_fdf *data)
 	x2->z = data->z_matrix[(int)x2->y][(int)x2->x];
 	if (x1->z || x2->z)
 	{
-		progress = (float)x1->z / (float)maxz(data);
+		if (x1->z != 0)
+			progress = (float)x1->z / (float)maxz(data);
 		if (colc == 0)
 			data->color = gradient(CREAM, AQUA, progress);
 		else

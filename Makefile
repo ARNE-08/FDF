@@ -6,7 +6,7 @@
 #    By: psaengha <marvin@42.fr>                    +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2023/07/17 15:53:50 by psaengha          #+#    #+#              #
-#    Updated: 2023/07/25 15:34:51 by psaengha         ###   ########.fr        #
+#    Updated: 2023/07/26 19:29:03 by psaengha         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -29,8 +29,8 @@ MINILIB = minilibx_macos/libmlx.a
 INCS_DIR = ./includes
 IFLAGS = -I $(INCS_DIR)
 LEAK = -fsanitize=address
-# GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude
-GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude $(LEAK)
+GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude
+# GCC_FLAGS = gcc -Wall -Wextra -Werror -g -Iinclude $(LEAK)
 
 all: $(NAME)
 

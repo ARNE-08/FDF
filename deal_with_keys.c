@@ -6,30 +6,43 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/23 03:43:16 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/25 13:22:49 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:56:56 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "fdf.h"
 
-int	deal_key(int key, t_fdf *data)
+void	freefdf(t_fdf *data)
 {
-	// ft_printf("%d\n", key);
-	if (key == KEY_ESC)
+	int	i;
+
+	i = 0;
+	while (data->z_matrix[i] && data->c_matrix[i])
 	{
-		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-		exit(0);
+		free(data->z_matrix[i]);
+		free(data->c_matrix[i]);
+		i++;
 	}
-	mlx_clear_window(data->mlx_ptr, data->win_ptr);
-	drawmap(data);
-	return (key);
+	free(data->z_matrix);
+	free(data->c_matrix);
+	free(data);
 }
 
 int	close_button_event(int keycode, t_fdf *data)
 {
 	exit(0);
-	// mlx_destroy_window(data->mlx_ptr, data->win_ptr);
-	return (0);
+}
+
+int	deal_key(int key, t_fdf *data)
+{
+	if (key == KEY_ESC)
+	{
+		mlx_destroy_window(data->mlx_ptr, data->win_ptr);
+		mlx_destroy_image(data->mlx_ptr, data->img_ptr);
+		freefdf(data);
+		exit(0);
+	}
+	return (key);
 }
 
 void	createmlx(t_fdf *data)

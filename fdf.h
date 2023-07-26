@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   FDF.h                                              :+:      :+:    :+:   */
+/*   fdf.h                                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:44 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/26 00:44:09 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 19:47:00 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,20 +41,20 @@ typedef struct s_fdf
 {
 	int		width;
 	int		height;
-	int		**z_matrix;
-	int		**c_matrix;
 
 	int		color;
 
-	float	zoom;
 	int		shift_x;
 	int		shift_y;
 	int		w;
 	int		h;
 
+	float	zoom;
 	void	*img_ptr;
 	void	*mlx_ptr;
 	void	*win_ptr;
+	int		**c_matrix;
+	int		**z_matrix;
 }	t_fdf;
 
 typedef struct s_pos
@@ -96,5 +96,6 @@ void	apply_start_pnt(t_fdf *data);
 void	get_zoom(char **av, t_fdf *data);
 int		get_rheight(t_fdf *data);
 void	checkmap(char *str);
+int		close_button_event(int keycode, t_fdf *data);
 
 #endif

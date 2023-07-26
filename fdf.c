@@ -6,7 +6,7 @@
 /*   By: psaengha <marvin@42.fr>                    +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2023/07/17 15:53:24 by psaengha          #+#    #+#             */
-/*   Updated: 2023/07/26 01:10:41 by psaengha         ###   ########.fr       */
+/*   Updated: 2023/07/26 22:36:13 by psaengha         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ void	check_amount(char *file)
 	int		fd;
 
 	fd = open(file, O_RDONLY, 0);
-	get_next_line(fd, &line);
+	line = get_next_line(fd);
 	temp = word_count(line, ' ');
-	while (get_next_line(fd, &line))
+	while (line != NULL)
 	{
 		amount = word_count(line, ' ');
 		if (temp != amount)
@@ -31,6 +31,8 @@ void	check_amount(char *file)
 			perror("Maps test must have amount of value in every line equal.");
 			exit(1);
 		}
+		free(line);
+		line = get_next_line(fd);
 	}
 }
 
@@ -68,9 +70,15 @@ void	check_error(int ac, char **av)
 		check_error2(fd);
 	else
 		check_amount(av[1]);
+	i = 0;
+	while (file[i])
+	{
+		free(file[i]);
+		i++;
+	}
+	free(file);
 }
 
-// ! free all before closing the program to prevent leak
 int	main(int ac, char **av)
 {
 	t_fdf	*data;
